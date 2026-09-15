@@ -61,8 +61,8 @@ export function Hero() {
           </h1>
 
           <p className="hero-lema">
-            Churrasqueira de bairro em Custóias. Carvão, travessas para o meio
-            da mesa e música ao vivo ao fim de semana.
+            Brasa de Custóias — venha pelos grelhados, fique pelo ambiente e
+            pela música ao vivo ao fim de semana.
           </p>
 
           <div className="hero-estado">
