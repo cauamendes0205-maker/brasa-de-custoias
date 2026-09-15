@@ -2,11 +2,16 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { Phone, MapPin, UtensilsCrossed, ShoppingBag } from "lucide-react";
+import {
+  Phone,
+  MapPin,
+  UtensilsCrossed,
+  ShoppingBag,
+  CalendarDays,
+} from "lucide-react";
 import { Logo } from "@/components/logo";
 import { DistintivoAbertura } from "@/components/estado-abertura";
 import { RESTAURANTE, LIGACOES, DIRECOES } from "@/lib/restaurante";
-import { IconeFacebook } from "@/components/icones-marca";
 
 /** Parallax suave: guarda a distancia de scroll numa variavel CSS. */
 function useParallax() {
@@ -87,13 +92,21 @@ export function Hero() {
             </a>
             <a
               className="botao botao-vidro"
-              href={LIGACOES.facebook}
+              href={RESTAURANTE.whatsappReserva}
               target="_blank"
               rel="noreferrer noopener"
-              aria-label="Facebook da Brasa de Custóias"
             >
-              <IconeFacebook />
-              Facebook
+              <CalendarDays size={18} aria-hidden="true" />
+              Reservar
+            </a>
+            <a
+              className="botao botao-vidro"
+              href={RESTAURANTE.whatsappTakeaway}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <ShoppingBag size={18} aria-hidden="true" />
+              Take-away
             </a>
           </div>
 
@@ -109,7 +122,7 @@ export function Hero() {
               rel="noreferrer noopener"
             >
               <ShoppingBag size={18} aria-hidden="true" />
-              Encomendar no Uber Eats
+              Pedir no Uber Eats
             </a>
             <a
               className="botao botao-glovo"
@@ -120,6 +133,17 @@ export function Hero() {
               <ShoppingBag size={18} aria-hidden="true" />
               Pedir na Glovo
             </a>
+            {LIGACOES.bolt ? (
+              <a
+                className="botao botao-vidro"
+                href={LIGACOES.bolt}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <ShoppingBag size={18} aria-hidden="true" />
+                Pedir pela Bolt
+              </a>
+            ) : null}
           </div>
         </div>
 

@@ -21,6 +21,17 @@ export const RESTAURANTE = {
   email: "Brasadecustoias@gmail.com",
   emailHref: "mailto:Brasadecustoias@gmail.com",
   whatsapp: "https://wa.me/351963367103",
+  // WhatsApp com mensagem pré-preenchida (reserva e take-away).
+  whatsappReserva:
+    "https://wa.me/351963367103?text=" +
+    encodeURIComponent(
+      "Olá! Gostaria de fazer uma reserva no Brasa de Custóias. Data: ___  Hora: ___  Número de pessoas: ___",
+    ),
+  whatsappTakeaway:
+    "https://wa.me/351963367103?text=" +
+    encodeURIComponent(
+      "Olá! Gostaria de fazer um pedido de take-away no Brasa de Custóias.",
+    ),
   precoMedio: { min: 15, max: 20, texto: "15 € – 20 € por pessoa" },
   permanencia: "entre 15 minutos e 2 horas",
 } as const;
@@ -99,6 +110,8 @@ export const LIGACOES = {
     "https://www.ubereats.com/pt/store/brasa-de-custoias-custoias/xtI2MVgdXkO4oAyBS5cRAw",
   glovo:
     "https://glovoapp.com/pt/pt/porto/stores/churrasqueira-de-custoias-opo",
+  // BOLT FOOD: link oficial da loja na Bolt Food (idioma pt).
+  bolt: "https://food.bolt.eu/pt-PT/437-porto/p/165076-brasa-de-custoias/",
 };
 
 const MORADA_URL = encodeURIComponent(

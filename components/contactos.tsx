@@ -1,4 +1,14 @@
-import { Phone, MessageCircle, MapPin, Navigation, ShoppingBag, Wallet, Timer } from "lucide-react";
+import {
+  Phone,
+  MessageCircle,
+  MapPin,
+  Navigation,
+  ShoppingBag,
+  Wallet,
+  Timer,
+  CalendarDays,
+  Zap,
+} from "lucide-react";
 import { RESTAURANTE, LIGACOES, DIRECOES } from "@/lib/restaurante";
 import { TabelaHorario } from "@/components/estado-abertura";
 import { IconeFacebook, IconeInstagram } from "@/components/icones-marca";
@@ -74,6 +84,14 @@ export function Contactos() {
                 <MessageCircle size={18} aria-hidden="true" />
                 WhatsApp
               </a>
+              <a className="botao botao-vidro" href={RESTAURANTE.whatsappReserva} target="_blank" rel="noreferrer noopener">
+                <CalendarDays size={18} aria-hidden="true" />
+                Reservar
+              </a>
+              <a className="botao botao-vidro" href={RESTAURANTE.whatsappTakeaway} target="_blank" rel="noreferrer noopener">
+                <ShoppingBag size={18} aria-hidden="true" />
+                Take-away
+              </a>
               <a className="botao botao-vidro" href={LIGACOES.uberEats} target="_blank" rel="noreferrer noopener">
                 <ShoppingBag size={18} aria-hidden="true" />
                 Uber Eats
@@ -82,6 +100,12 @@ export function Contactos() {
                 <ShoppingBag size={18} aria-hidden="true" />
                 Glovo
               </a>
+              {LIGACOES.bolt ? (
+                <a className="botao botao-vidro" href={LIGACOES.bolt} target="_blank" rel="noreferrer noopener">
+                  <Zap size={18} aria-hidden="true" />
+                  Pedir pela Bolt
+                </a>
+              ) : null}
               <a className="botao botao-vidro" href={LIGACOES.facebook} target="_blank" rel="noreferrer noopener">
                 <IconeFacebook />
                 Facebook

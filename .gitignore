@@ -43,3 +43,13 @@ next-env.d.ts
 # ferramentas (claude-flow / ruflo) — nao pertencem ao site
 .claude-flow/
 .swarm/
+
+# OpenNext
+.open-next
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+
+!.env.example
