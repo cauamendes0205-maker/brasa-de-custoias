@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { Info } from "lucide-react";
 import { EMENTA, AVISO_PRECOS, type Prato } from "@/lib/restaurante";
 
@@ -86,9 +86,18 @@ export function Ementa() {
         >
           <p className="ementa-legenda">{categoria.legenda}</p>
           <ul className="pratos pratos-so-texto">
-            {categoria.pratos.map((p) => (
-              <LinhaPrato key={p.nome} prato={p} />
-            ))}
+            {categoria.pratos.map((p, i) => {
+              const mostrarGrupo =
+                p.grupo && p.grupo !== categoria.pratos[i - 1]?.grupo;
+              return (
+                <Fragment key={i}>
+                  {mostrarGrupo ? (
+                    <li className="prato-grupo">{p.grupo}</li>
+                  ) : null}
+                  <LinhaPrato prato={p} />
+                </Fragment>
+              );
+            })}
           </ul>
         </div>
 

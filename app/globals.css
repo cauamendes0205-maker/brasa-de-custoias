@@ -1239,3 +1239,16 @@ h1, h2, h3, .logo-brasa, .carta-titulo, .nota-valor {
   transform: translateY(-1px);
 }
 .prato-destaque .prato-nome { color: #fff; }
+
+/* Sub-secção dentro de uma categoria da ementa (ex.: Grelhados, Mistos). */
+.prato-grupo {
+  list-style: none;
+  margin: 16px 0 4px;
+  padding-left: 12px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dourado);
+}
+.prato-grupo:first-child { margin-top: 0; }

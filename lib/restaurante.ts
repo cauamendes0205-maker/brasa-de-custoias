@@ -145,6 +145,8 @@ export type Prato = {
   descricao?: string;
   precos: Preco[];
   nota?: string;
+  /** Sub-secção dentro da categoria (ex.: Grelhados, Mistos, Promoções). */
+  grupo?: string;
   /** Realce discreto (usado nas promoções). */
   destaque?: boolean;
 };
@@ -158,27 +160,149 @@ export type Categoria = {
 
 export const EMENTA: Categoria[] = [
   {
-    id: "promocoes",
-    nome: "Promoções",
-    legenda: "Combinações com guarnição já incluída.",
+    id: "takeaway",
+    nome: "Take-away",
+    legenda:
+      "Para levar. Peça pelo telefone ou WhatsApp. IVA incluído à taxa em vigor.",
     pratos: [
       {
+        grupo: "Grelhados",
+        nome: "1 frango no churrasco",
+        descricao: "Oferta de 1 toscana.",
+        precos: [{ valor: 8.2 }],
+      },
+      { grupo: "Grelhados", nome: "Meio frango", precos: [{ valor: 4.2 }] },
+      {
+        grupo: "Grelhados",
+        nome: "Costelinhas na brasa",
+        descricao: "Sem guarnição.",
+        precos: [{ valor: 18.5 }],
+      },
+      {
+        grupo: "Grelhados",
+        nome: "Meia dose de costelinhas",
+        descricao: "Sem guarnição.",
+        precos: [{ valor: 11.0 }],
+      },
+      { grupo: "Grelhados", nome: "Toscana", precos: [{ valor: 1.25 }] },
+      {
+        grupo: "Mistos",
+        nome: "Grelhado misto",
+        descricao:
+          "Frango, costelinha, entrecosto, bifinhos de alcatra e toscana.",
+        precos: [
+          { valor: 24.5, rotulo: "normal" },
+          { valor: 37.5, rotulo: "familiar" },
+        ],
+      },
+      {
+        grupo: "Mistos",
+        nome: "Misto familiar",
+        descricao:
+          "Frango, costelinha, entrecosto, picanha, bifinhos de alcatra, alheira e toscana.",
+        precos: [
+          { valor: 39.0, rotulo: "normal" },
+          { valor: 59.5, rotulo: "familiar" },
+        ],
+      },
+      {
+        grupo: "Mistos",
+        nome: "Churrasco à Brasa",
+        descricao: "Frango, costelinha, picanha, lulas, camarão e toscana.",
+        precos: [
+          { valor: 36.5, rotulo: "normal" },
+          { valor: 49.5, rotulo: "familiar" },
+        ],
+      },
+      {
+        grupo: "Promoções",
         nome: "Frango",
         descricao: "1 frango, ½ batata, ¼ de arroz e 1 toscana.",
         precos: [{ valor: 13.6 }],
         destaque: true,
       },
       {
+        grupo: "Promoções",
         nome: "Costelinhas",
         descricao: "1 dose de costelinhas, 1 batata, 1 arroz e 1 toscana.",
         precos: [{ valor: 26.5 }],
         destaque: true,
       },
       {
+        grupo: "Promoções",
         nome: "Meia dose de costelinhas",
         descricao: "½ costelinhas, ½ batata, ½ arroz e 1 toscana.",
         precos: [{ valor: 16.9 }],
         destaque: true,
+      },
+      {
+        grupo: "Guarnições",
+        nome: "Arroz",
+        precos: [
+          { valor: 4.95, rotulo: "dose" },
+          { valor: 3.9, rotulo: "½" },
+          { valor: 2.6, rotulo: "¼" },
+        ],
+      },
+      {
+        grupo: "Guarnições",
+        nome: "Batata frita palito",
+        precos: [
+          { valor: 4.95, rotulo: "dose" },
+          { valor: 3.9, rotulo: "½" },
+          { valor: 2.6, rotulo: "¼" },
+        ],
+      },
+      {
+        grupo: "Guarnições",
+        nome: "Batata à rodela",
+        precos: [
+          { valor: 4.95, rotulo: "dose" },
+          { valor: 3.9, rotulo: "½" },
+          { valor: 2.6, rotulo: "¼" },
+        ],
+      },
+      {
+        grupo: "Guarnições",
+        nome: "Batata a murro",
+        precos: [
+          { valor: 4.95, rotulo: "dose" },
+          { valor: 4.3, rotulo: "½" },
+          { valor: 3.1, rotulo: "¼" },
+        ],
+      },
+      {
+        grupo: "Guarnições",
+        nome: "Legumes salteados",
+        precos: [
+          { valor: 5.5, rotulo: "dose" },
+          { valor: 4.5, rotulo: "½" },
+          { valor: 3.2, rotulo: "¼" },
+        ],
+      },
+      {
+        grupo: "Extras",
+        nome: "Feijão preto",
+        precos: [
+          { valor: 4.8, rotulo: "dose" },
+          { valor: 3.8, rotulo: "½" },
+        ],
+      },
+      {
+        grupo: "Extras",
+        nome: "Salada mista",
+        precos: [
+          { valor: 4.5, rotulo: "dose" },
+          { valor: 3.5, rotulo: "½" },
+        ],
+      },
+      {
+        grupo: "Extras",
+        nome: "Salada com pimento",
+        precos: [
+          { valor: 4.9, rotulo: "dose" },
+          { valor: 3.8, rotulo: "½" },
+        ],
       },
     ],
   },
@@ -370,74 +494,6 @@ export const EMENTA: Categoria[] = [
         precos: [{ valor: 12.0 }],
       },
       { nome: "Francesinha normal", precos: [{ valor: 10.0 }] },
-    ],
-  },
-  {
-    id: "guarnicoes",
-    nome: "Guarnições e extras",
-    legenda: "Doses, meias e quartos.",
-    pratos: [
-      {
-        nome: "Arroz",
-        precos: [
-          { valor: 4.95, rotulo: "dose" },
-          { valor: 3.9, rotulo: "½" },
-          { valor: 2.6, rotulo: "¼" },
-        ],
-      },
-      {
-        nome: "Batata frita palito",
-        precos: [
-          { valor: 4.95, rotulo: "dose" },
-          { valor: 3.9, rotulo: "½" },
-          { valor: 2.6, rotulo: "¼" },
-        ],
-      },
-      {
-        nome: "Batata à rodela",
-        precos: [
-          { valor: 4.95, rotulo: "dose" },
-          { valor: 3.9, rotulo: "½" },
-          { valor: 2.6, rotulo: "¼" },
-        ],
-      },
-      {
-        nome: "Batata a murro",
-        precos: [
-          { valor: 4.95, rotulo: "dose" },
-          { valor: 4.3, rotulo: "½" },
-          { valor: 3.1, rotulo: "¼" },
-        ],
-      },
-      {
-        nome: "Legumes salteados",
-        precos: [
-          { valor: 5.5, rotulo: "dose" },
-          { valor: 4.5, rotulo: "½" },
-          { valor: 3.2, rotulo: "¼" },
-        ],
-      },
-      {
-        nome: "Feijão preto",
-        precos: [
-          { valor: 4.8, rotulo: "dose" },
-          { valor: 3.8, rotulo: "½" },
-        ],
-      },
-      {
-        nome: "Salada mista",
-        precos: [
-          { valor: 4.5, rotulo: "dose" },
-          { valor: 3.5, rotulo: "½" },
-        ],
-      },
-      {
-        nome: "Salada com pimento",
-        precos: [
-          { valor: 4.9, rotulo: "dose" },
-          { valor: 3.8, rotulo: "½" },
-        ],
-      },
     ],
   },
 ];
