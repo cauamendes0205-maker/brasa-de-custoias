@@ -160,11 +160,51 @@ export type Categoria = {
 
 export const EMENTA: Categoria[] = [
   {
+    id: "entradas",
+    nome: "Entradas",
+    legenda: "Para começar.",
+    pratos: [
+      { nome: "Cesto de pão", precos: [{ valor: 1.4 }] },
+      { nome: "Manteiga, queijo Querú e paté", precos: [{ valor: 1.0 }] },
+      { nome: "Azeitonas", precos: [{ valor: 1.5 }] },
+      { nome: "Alheira na brasa", precos: [{ valor: 3.8 }] },
+      { nome: "Prato de salgadinhos", precos: [{ valor: 4.5 }] },
+      { nome: "Toscana", precos: [{ valor: 1.6 }] },
+      { nome: "Prato de presunto", precos: [{ valor: 5.0 }] },
+      { nome: "Tábua de presunto e salpicão", precos: [{ valor: 7.0 }] },
+      {
+        nome: "Tábua de presunto, salpicão e queijo da Serra",
+        precos: [{ valor: 9.5 }],
+      },
+    ],
+  },
+  {
     id: "takeaway",
     nome: "Take-away",
     legenda:
       "Para levar. Peça pelo telefone ou WhatsApp. IVA incluído à taxa em vigor.",
     pratos: [
+      {
+        grupo: "Promoções",
+        nome: "Frango",
+        descricao: "1 frango, ½ batata, ¼ de arroz e 1 toscana.",
+        precos: [{ valor: 13.6 }],
+        destaque: true,
+      },
+      {
+        grupo: "Promoções",
+        nome: "Costelinhas",
+        descricao: "1 dose de costelinhas, 1 batata, 1 arroz e 1 toscana.",
+        precos: [{ valor: 26.5 }],
+        destaque: true,
+      },
+      {
+        grupo: "Promoções",
+        nome: "Meia dose de costelinhas",
+        descricao: "½ costelinhas, ½ batata, ½ arroz e 1 toscana.",
+        precos: [{ valor: 16.9 }],
+        destaque: true,
+      },
       {
         grupo: "Grelhados",
         nome: "1 frango no churrasco",
@@ -213,27 +253,6 @@ export const EMENTA: Categoria[] = [
           { valor: 36.5, rotulo: "normal" },
           { valor: 49.5, rotulo: "familiar" },
         ],
-      },
-      {
-        grupo: "Promoções",
-        nome: "Frango",
-        descricao: "1 frango, ½ batata, ¼ de arroz e 1 toscana.",
-        precos: [{ valor: 13.6 }],
-        destaque: true,
-      },
-      {
-        grupo: "Promoções",
-        nome: "Costelinhas",
-        descricao: "1 dose de costelinhas, 1 batata, 1 arroz e 1 toscana.",
-        precos: [{ valor: 26.5 }],
-        destaque: true,
-      },
-      {
-        grupo: "Promoções",
-        nome: "Meia dose de costelinhas",
-        descricao: "½ costelinhas, ½ batata, ½ arroz e 1 toscana.",
-        precos: [{ valor: 16.9 }],
-        destaque: true,
       },
       {
         grupo: "Guarnições",
@@ -303,25 +322,6 @@ export const EMENTA: Categoria[] = [
           { valor: 4.9, rotulo: "dose" },
           { valor: 3.8, rotulo: "½" },
         ],
-      },
-    ],
-  },
-  {
-    id: "entradas",
-    nome: "Entradas",
-    legenda: "Para começar.",
-    pratos: [
-      { nome: "Cesto de pão", precos: [{ valor: 1.4 }] },
-      { nome: "Manteiga, queijo Querú e paté", precos: [{ valor: 1.0 }] },
-      { nome: "Azeitonas", precos: [{ valor: 1.5 }] },
-      { nome: "Alheira na brasa", precos: [{ valor: 3.8 }] },
-      { nome: "Prato de salgadinhos", precos: [{ valor: 4.5 }] },
-      { nome: "Toscana", precos: [{ valor: 1.6 }] },
-      { nome: "Prato de presunto", precos: [{ valor: 5.0 }] },
-      { nome: "Tábua de presunto e salpicão", precos: [{ valor: 7.0 }] },
-      {
-        nome: "Tábua de presunto, salpicão e queijo da Serra",
-        precos: [{ valor: 9.5 }],
       },
     ],
   },
