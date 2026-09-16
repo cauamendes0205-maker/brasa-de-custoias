@@ -12,7 +12,7 @@ const PRATOS: CarouselItem[] = [
     titleLine1: "GRELHADO MISTO",
     titleLine2: "PARA PARTILHAR",
     desc: "Frango, costelinhas, entremeada, alcatra e toscana, com batata e arroz.",
-    price: "37,50 € · meia 24,50 €",
+    price: "26,50 € · 38,50 €",
     img: "/fotos/g3.jpg",
     imgAlt:
       "Travessa oval de grelhado misto com costeletas, chouriço e carnes fatiadas, servida com batata frita, arroz e pão.",
@@ -34,7 +34,7 @@ const PRATOS: CarouselItem[] = [
     titleLine1: "CHURRASCO",
     titleLine2: "À BRASA",
     desc: "Frango, costelinhas, picanha, lulas, camarão e toscana, com batata à rodela e salada.",
-    price: "49,50 € · meia 36,50 €",
+    price: "38,50 € · 51,50 €",
     img: "/fotos/g4.jpg",
     imgAlt:
       "Travessa de grelhados com entrecosto, costeletas, gambas, lulas e chouriço.",

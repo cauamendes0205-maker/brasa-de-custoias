@@ -1210,3 +1210,27 @@ h1, h2, h3, .logo-brasa, .carta-titulo, .nota-valor {
 .botao-glovo:active {
   transform: translateY(0) scale(0.99);
 }
+
+/* Rótulo pequeno junto ao preço (dose, ½, ¼, ±pax). */
+.prato-preco-rotulo {
+  font-weight: 600;
+  font-size: 0.72rem;
+  color: var(--creme-suave);
+}
+
+/* Selo discreto de promoção, dentro da paleta do site. */
+.prato-promo {
+  display: inline-block;
+  margin-left: 9px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #180d06;
+  background: linear-gradient(140deg, var(--brasa-3), var(--brasa-1) 75%);
+  vertical-align: middle;
+  transform: translateY(-1px);
+}
+.prato-destaque .prato-nome { color: #fff; }

@@ -135,18 +135,18 @@ export const DIRECOES = {
  * ------------------------------------------------------------------ */
 
 export const AVISO_PRECOS =
-  "Preços dos quadros da casa (sala e take-away). Podem ser atualizados — confirme no restaurante.";
+  "Preços do cardápio oficial da casa, com IVA incluído. Podem ser atualizados — confirme no restaurante.";
+
+/** Um preço da linha, com rótulo opcional (dose, família, ±pax, ½, ¼). */
+export type Preco = { valor: number; rotulo?: string };
 
 export type Prato = {
   nome: string;
   descricao?: string;
-  /** Preço da dose, ou preço único. */
-  preco: number;
-  /** Preço da meia dose, quando a casa a serve. */
-  precoMeia?: number;
+  precos: Preco[];
   nota?: string;
-  foto?: string;
-  fotoAlt?: string;
+  /** Realce discreto (usado nas promoções). */
+  destaque?: boolean;
 };
 
 export type Categoria = {
@@ -158,57 +158,203 @@ export type Categoria = {
 
 export const EMENTA: Categoria[] = [
   {
-    id: "pratos-dia",
-    nome: "Pratos do dia",
-    legenda: "Incluem sopa, pão, bebida e café. Não é permitido partilhar.",
+    id: "promocoes",
+    nome: "Promoções",
+    legenda: "Combinações com guarnição já incluída.",
     pratos: [
-      { nome: "Bacalhau à Braga", preco: 12.0 },
-      { nome: "Açorda de marisco", preco: 10.0 },
       {
-        nome: "Costela mendinha de vitela estufada",
-        preco: 10.0,
+        nome: "Frango",
+        descricao: "1 frango, ½ batata, ¼ de arroz e 1 toscana.",
+        precos: [{ valor: 13.6 }],
+        destaque: true,
       },
-      { nome: "Carne de porco à alentejana", preco: 10.0 },
-    ],
-  },
-  {
-    id: "grelhados",
-    nome: "Grelhados",
-    legenda: "Individuais. Acompanham com batata e salada.",
-    pratos: [
-      { nome: "Dourada grelhada", descricao: "Mais de 300 g.", preco: 12.0 },
-      { nome: "Robalo na brasa", descricao: "Mais de 300 g.", preco: 12.0 },
-      { nome: "Espetada de vitela na brasa", preco: 11.0 },
-      { nome: "Bifinhos de vitela com cogumelos", preco: 11.0 },
-      { nome: "Costelinhas na brasa", preco: 10.0 },
-      { nome: "Entremeada na brasa", preco: 10.0 },
-      { nome: "Alheira na brasa com ovo", preco: 10.0 },
       {
-        nome: "Frango no churrasco",
-        preco: 10.0,
-        foto: "/fotos/frango-brasa.jpg",
-        fotoAlt:
-          "Frangos abertos a assar na grelha, sobre a brasa de carvão.",
+        nome: "Costelinhas",
+        descricao: "1 dose de costelinhas, 1 batata, 1 arroz e 1 toscana.",
+        precos: [{ valor: 26.5 }],
+        destaque: true,
+      },
+      {
+        nome: "Meia dose de costelinhas",
+        descricao: "½ costelinhas, ½ batata, ½ arroz e 1 toscana.",
+        precos: [{ valor: 16.9 }],
+        destaque: true,
       },
     ],
   },
   {
-    id: "executivos",
-    nome: "Pratos executivos",
-    legenda: "Acompanham com batata e salada.",
+    id: "entradas",
+    nome: "Entradas",
+    legenda: "Para começar.",
+    pratos: [
+      { nome: "Cesto de pão", precos: [{ valor: 1.4 }] },
+      { nome: "Manteiga, queijo Querú e paté", precos: [{ valor: 1.0 }] },
+      { nome: "Azeitonas", precos: [{ valor: 1.5 }] },
+      { nome: "Alheira na brasa", precos: [{ valor: 3.8 }] },
+      { nome: "Prato de salgadinhos", precos: [{ valor: 4.5 }] },
+      { nome: "Toscana", precos: [{ valor: 1.6 }] },
+      { nome: "Prato de presunto", precos: [{ valor: 5.0 }] },
+      { nome: "Tábua de presunto e salpicão", precos: [{ valor: 7.0 }] },
+      {
+        nome: "Tábua de presunto, salpicão e queijo da Serra",
+        precos: [{ valor: 9.5 }],
+      },
+    ],
+  },
+  {
+    id: "na-brasa",
+    nome: "Pratos na brasa",
+    legenda: "Direto do carvão.",
     pratos: [
       {
-        nome: "Postinha do chefe",
+        nome: "Robalo na brasa",
+        descricao: "±300 g, com batata a murro e legumes.",
+        precos: [{ valor: 12.0 }],
+      },
+      {
+        nome: "Dourada na brasa",
+        descricao: "±300 g, com batata a murro e legumes.",
+        precos: [{ valor: 12.0 }],
+      },
+      { nome: "Bifinhos de vitela com cogumelos", precos: [{ valor: 11.0 }] },
+      {
+        nome: "Costeletas de cachaço",
         descricao: "Com batata a murro e legumes.",
-        preco: 14.0,
+        precos: [{ valor: 10.0 }],
       },
-      { nome: "Bife à patrão", preco: 14.0 },
+      { nome: "Espetadas de vitela", precos: [{ valor: 11.0 }] },
+      { nome: "Entremeada na brasa", precos: [{ valor: 10.0 }] },
+      { nome: "Frango no churrasco", precos: [{ valor: 10.0 }] },
+      { nome: "Costelinhas de porco na brasa", precos: [{ valor: 10.0 }] },
+      { nome: "Alheira com ovo", precos: [{ valor: 10.0 }] },
+    ],
+  },
+  {
+    id: "especialidades",
+    nome: "Especialidades da casa",
+    legenda: "Travessas para partilhar. Preços por dose e por dose maior.",
+    pratos: [
       {
-        nome: "Picanha à brasileira",
-        descricao: "Com batata, arroz e feijão preto.",
-        preco: 14.0,
+        nome: "Ovos rotos à brasa",
+        descricao: "Batata frita, 3 ovos, presunto e alho-francês frito.",
+        precos: [{ valor: 12.5 }],
       },
-      { nome: "Lulas executivo", preco: 14.0 },
+      {
+        nome: "Churrasco à Brasa",
+        descricao:
+          "Frango, costelinha, picanha, toscana, lulas e gambas, com batata frita, rodela e salada.",
+        precos: [
+          { valor: 38.5, rotulo: "±2 pax" },
+          { valor: 51.5, rotulo: "±4 pax" },
+        ],
+      },
+      {
+        nome: "Misto familiar",
+        descricao:
+          "Frango, costelinha, picanha, bifinhos de alcatra, alheira, entrecosto e toscana, com batata frita e arroz.",
+        precos: [
+          { valor: 41.0, rotulo: "±3 pax" },
+          { valor: 62.5, rotulo: "±5 pax" },
+        ],
+      },
+      {
+        nome: "Grelhado misto",
+        descricao:
+          "Frango, costelinha, entrecosto, bifinhos de alcatra e toscana, com batata frita e arroz.",
+        precos: [
+          { valor: 26.5, rotulo: "±2 pax" },
+          { valor: 38.5, rotulo: "±4 pax" },
+        ],
+      },
+      {
+        nome: "Lulas grelhadas",
+        descricao: "Com batata a murro e legumes.",
+        precos: [{ valor: 13.0 }, { valor: 26.0 }],
+      },
+      {
+        nome: "Naco de carne laminado",
+        descricao: "Com batata palha e salada.",
+        precos: [{ valor: 14.5 }, { valor: 29.0 }],
+      },
+    ],
+  },
+  {
+    id: "executivo",
+    nome: "Prato executivo",
+    legenda:
+      "Ao almoço, de terça a sábado. Inclui pão, sopa, ½ caneca de vinho (ou outra bebida) e café. Uma dose por pessoa, não partilhável. Não disponível a feriados e domingos.",
+    pratos: [
+      {
+        nome: "Lulas na brasa",
+        descricao: "Com batata a murro e legumes.",
+        precos: [{ valor: 14.0 }],
+      },
+      {
+        nome: "Postinha de vitela à chefe",
+        descricao: "Com batata a murro e legumes.",
+        precos: [{ valor: 14.0 }],
+      },
+      { nome: "Bife à patrão", precos: [{ valor: 14.0 }] },
+      { nome: "Picanha à brasileira", precos: [{ valor: 14.0 }] },
+      {
+        nome: "Polvo à lagareiro",
+        descricao: "Com batata a murro e legumes.",
+        precos: [{ valor: 19.5 }],
+      },
+    ],
+  },
+  {
+    id: "carnes",
+    nome: "Carnes",
+    legenda: "Dose individual e dose família.",
+    pratos: [
+      {
+        nome: "Posta de vitela na brasa",
+        descricao: "Com batata a murro e legumes.",
+        precos: [{ valor: 19.5 }, { valor: 32.5 }],
+      },
+      {
+        nome: "Picanha Angus (Argentina)",
+        descricao: "Com batata frita, arroz e feijão preto.",
+        precos: [{ valor: 22.0 }, { valor: 38.5 }],
+      },
+      { nome: "Bife à Brasa", precos: [{ valor: 16.0 }, { valor: 28.5 }] },
+      {
+        nome: "Espetada à transmontana",
+        descricao: "Com batata frita, rodela e salada.",
+        precos: [{ valor: 24.5 }, { valor: 34.5 }],
+      },
+      {
+        nome: "Espetada terra e mar",
+        descricao: "Nacos de alcatra com camarão.",
+        precos: [{ valor: 24.5 }, { valor: 36.5 }],
+      },
+      {
+        nome: "Frango churrasco simples",
+        precos: [{ valor: 6.8 }, { valor: 13.5 }],
+      },
+      { nome: "Costelinhas simples", precos: [{ valor: 11.0 }, { valor: 21.0 }] },
+    ],
+  },
+  {
+    id: "peixe",
+    nome: "Peixe",
+    legenda: "Dose individual e dose família.",
+    pratos: [
+      {
+        nome: "Bacalhau à lagareiro",
+        precos: [{ valor: 26.0 }, { valor: 52.0 }],
+      },
+      { nome: "Bacalhau à Braga", precos: [{ valor: 26.0 }, { valor: 52.0 }] },
+      {
+        nome: "Espetada mista",
+        descricao: "Lulas e gambas.",
+        precos: [{ valor: 23.5 }, { valor: 38.5 }],
+      },
+      {
+        nome: "Espetada de gambas na brasa",
+        precos: [{ valor: 19.0 }, { valor: 38.0 }],
+      },
     ],
   },
   {
@@ -216,154 +362,81 @@ export const EMENTA: Categoria[] = [
     nome: "Snacks",
     legenda: "Para uma refeição rápida.",
     pratos: [
-      {
-        nome: "Prego no prato",
-        preco: 12.5,
-        foto: "/fotos/g2.jpg",
-        fotoAlt:
-          "Prego no prato: bife com ovo a cavalo, batata frita e arroz numa travessa branca.",
-      },
+      { nome: "Prego no prato", precos: [{ valor: 12.5 }] },
       {
         nome: "Francesinha especial",
-        preco: 12.0,
-        foto: "/fotos/francesinha.jpg",
-        fotoAlt:
-          "Francesinha especial em travessa de barro, coberta de queijo derretido, molho alaranjado e ovo estrelado por cima.",
+        descricao: "Com ovo e batata.",
+        precos: [{ valor: 12.0 }],
       },
-      { nome: "Francesinha normal", preco: 10.0 },
-      { nome: "Codornizes à minha maneira", preco: 3.0 },
+      { nome: "Francesinha normal", precos: [{ valor: 10.0 }] },
     ],
   },
   {
-    id: "saladas",
-    nome: "Saladas",
-    legenda: "Frescas, para acompanhar ou como refeição leve.",
-    pratos: [
-      { nome: "Salada César", preco: 10.5 },
-      { nome: "Salada de atum", preco: 10.5 },
-      { nome: "Ovos rotos", preco: 10.5 },
-      { nome: "Salada mista", preco: 5.0 },
-    ],
-  },
-  {
-    id: "mistos",
-    nome: "Mistos para partilhar",
-    legenda: "Travessas para o meio da mesa. Dose e meia dose.",
+    id: "guarnicoes",
+    nome: "Guarnições e extras",
+    legenda: "Doses, meias e quartos.",
     pratos: [
       {
-        nome: "Misto familiar",
-        descricao:
-          "Frango, costelinhas, entremeada, alcatra, alheira e toscana, com batata e arroz.",
-        preco: 59.5,
-        precoMeia: 39.0,
+        nome: "Arroz",
+        precos: [
+          { valor: 4.95, rotulo: "dose" },
+          { valor: 3.9, rotulo: "½" },
+          { valor: 2.6, rotulo: "¼" },
+        ],
       },
       {
-        nome: "Churrasco à brasa",
-        descricao:
-          "Frango, costelinhas, picanha, lulas, camarão e toscana, com batata à rodela e salada.",
-        preco: 49.5,
-        precoMeia: 36.5,
-        foto: "/fotos/g4.jpg",
-        fotoAlt:
-          "Travessa de grelhados com entrecosto, costeletas, gambas, lulas e chouriço.",
+        nome: "Batata frita palito",
+        precos: [
+          { valor: 4.95, rotulo: "dose" },
+          { valor: 3.9, rotulo: "½" },
+          { valor: 2.6, rotulo: "¼" },
+        ],
       },
       {
-        nome: "Grelhado misto",
-        descricao:
-          "Frango, costelinhas, entremeada, alcatra e toscana, com batata e arroz.",
-        preco: 37.5,
-        precoMeia: 24.5,
-        foto: "/fotos/g3.jpg",
-        fotoAlt:
-          "Travessa oval de grelhado misto com costeletas, chouriço e carnes fatiadas, servida com batata frita, arroz e pão.",
-      },
-    ],
-  },
-  {
-    id: "carnes",
-    nome: "Carnes na brasa",
-    legenda: "Espetadas, postas e picanha. Dose e meia dose.",
-    pratos: [
-      {
-        nome: "Picanha Angus (Uruguai)",
-        descricao: "Com batata frita, arroz e feijão preto.",
-        preco: 38.5,
-        precoMeia: 22.0,
+        nome: "Batata à rodela",
+        precos: [
+          { valor: 4.95, rotulo: "dose" },
+          { valor: 3.9, rotulo: "½" },
+          { valor: 2.6, rotulo: "¼" },
+        ],
       },
       {
-        nome: "Espetada terra e mar",
-        descricao: "Nacos de alcatra e camarão, com batata à rodela e salada.",
-        preco: 36.5,
-        precoMeia: 24.5,
+        nome: "Batata a murro",
+        precos: [
+          { valor: 4.95, rotulo: "dose" },
+          { valor: 4.3, rotulo: "½" },
+          { valor: 3.1, rotulo: "¼" },
+        ],
       },
       {
-        nome: "Espetada à transmontana",
-        descricao: "Com batata à rodela e salada.",
-        preco: 34.5,
-        precoMeia: 24.5,
+        nome: "Legumes salteados",
+        precos: [
+          { valor: 5.5, rotulo: "dose" },
+          { valor: 4.5, rotulo: "½" },
+          { valor: 3.2, rotulo: "¼" },
+        ],
       },
       {
-        nome: "Posta de vitela na brasa",
-        descricao: "Com batata a murro e legumes.",
-        preco: 32.5,
-        precoMeia: 19.5,
-      },
-    ],
-  },
-  {
-    id: "peixe-forno",
-    nome: "Peixe e forno",
-    legenda: "Da frigideira e do tacho. Dose e meia dose.",
-    pratos: [
-      {
-        nome: "Bacalhau à Braga",
-        preco: 52.0,
-        precoMeia: 26.0,
+        nome: "Feijão preto",
+        precos: [
+          { valor: 4.8, rotulo: "dose" },
+          { valor: 3.8, rotulo: "½" },
+        ],
       },
       {
-        nome: "Cabritinho assado no forno",
-        descricao: "Assado no forno, em pedaços.",
-        preco: 28.0,
-        precoMeia: 18.0,
+        nome: "Salada mista",
+        precos: [
+          { valor: 4.5, rotulo: "dose" },
+          { valor: 3.5, rotulo: "½" },
+        ],
       },
       {
-        nome: "Filetes de pescada",
-        descricao: "Com salada russa.",
-        preco: 23.0,
-        precoMeia: 16.0,
+        nome: "Salada com pimento",
+        precos: [
+          { valor: 4.9, rotulo: "dose" },
+          { valor: 3.8, rotulo: "½" },
+        ],
       },
-      {
-        nome: "Vitela assada no forno",
-        descricao: "Fatiada e regada com o molho do assado.",
-        preco: 22.0,
-        precoMeia: 14.0,
-      },
-      {
-        nome: "Panados de frango",
-        preco: 21.0,
-        precoMeia: 14.0,
-        foto: "/fotos/g9.jpg",
-        fotoAlt:
-          "Panados de frango dourados, com rodela de limão e salsa picada.",
-      },
-      {
-        nome: "Tripas à moda do Porto",
-        descricao:
-          "Estufado tradicional de tripas com feijão branco, carnes e legumes, em molho apurado.",
-        preco: 19.0,
-        precoMeia: 13.0,
-        foto: "/fotos/tripas.jpg",
-        fotoAlt:
-          "Tripas à moda do Porto: estufado de tripas com feijão branco, cenoura e carnes, em molho apurado.",
-      },
-    ],
-  },
-  {
-    id: "sopas",
-    nome: "Sopas",
-    legenda: "Feitas na casa.",
-    pratos: [
-      { nome: "Canja de galinha", preco: 2.8 },
     ],
   },
 ];

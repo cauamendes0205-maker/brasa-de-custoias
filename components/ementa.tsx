@@ -11,18 +11,23 @@ const euros = new Intl.NumberFormat("pt-PT", {
 
 function LinhaPrato({ prato }: { prato: Prato }) {
   return (
-    <li className="prato">
+    <li className={"prato" + (prato.destaque ? " prato-destaque" : "")}>
       <span className="prato-corpo">
         <span className="prato-cabeca">
-          <span className="prato-nome">{prato.nome}</span>
+          <span className="prato-nome">
+            {prato.nome}
+            {prato.destaque ? <span className="prato-promo">Promoção</span> : null}
+          </span>
           <span className="prato-pontilhado" aria-hidden="true" />
           <span className="prato-precos">
-            <span className="prato-preco">{euros.format(prato.preco)}</span>
-            {prato.precoMeia !== undefined ? (
-              <span className="prato-preco-meia">
-                meia {euros.format(prato.precoMeia)}
+            {prato.precos.map((pr, i) => (
+              <span key={i} className="prato-preco">
+                {euros.format(pr.valor)}
+                {pr.rotulo ? (
+                  <span className="prato-preco-rotulo"> {pr.rotulo}</span>
+                ) : null}
               </span>
-            ) : null}
+            ))}
           </span>
         </span>
         {prato.descricao ? <span className="prato-descricao">{prato.descricao}</span> : null}
@@ -50,7 +55,7 @@ export function Ementa() {
       <div className="seccao-interior">
         <h2 className="titulo-seccao">A ementa</h2>
         <p className="subtitulo-seccao">
-          Onde a casa serve dose e meia dose, aparecem os dois preços.
+          Cardápio da casa, com IVA incluído.
         </p>
 
         <div className="separadores" role="tablist" aria-label="Categorias da ementa">
