@@ -362,6 +362,7 @@ export const EMENTA: Categoria[] = [
     nome: "Snacks",
     legenda: "Para uma refeição rápida.",
     pratos: [
+      { nome: "Ovos rotos à brasa", precos: [{ valor: 9.5 }] },
       { nome: "Prego no prato", precos: [{ valor: 12.5 }] },
       {
         nome: "Francesinha especial",
