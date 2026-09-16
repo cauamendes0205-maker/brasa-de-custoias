@@ -1075,6 +1075,11 @@ h1, h2, h3, .logo-brasa, .carta-titulo, .nota-valor {
 
 @media (max-width: 640px) {
   :root { --desvio-1: 132px; --desvio-2: 240px; }
+
+  /* Separadores da ementa em 2 colunas: usam os dois lados e ocupam
+     menos altura, em vez de ficarem alinhados só à esquerda. */
+  .separadores { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .separador { padding: 11px 12px; font-size: 0.9rem; text-align: center; }
   .carta { width: 232px; height: 372px; }
   .carta-titulo { font-size: 1.35rem; }
   .carta-descricao { font-size: 0.78rem; max-width: 200px; }
